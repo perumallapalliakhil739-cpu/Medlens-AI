@@ -39,7 +39,7 @@ const STORAGE_KEYS = {
 };
 
 const DEFAULT_SETTINGS: AppSettings = {
-  geminiApiKey: '',
+  geminiApiKey: import.meta.env.VITE_GEMINI_API_KEY || '',
   useGeminiIfAvailable: true,
   autoDetectConflicts: true,
   theme: 'clinical_light',
@@ -523,7 +523,15 @@ export function saveAISummary(summary: AISummary): void {
 
 // --- SETTINGS & USER ---
 export function getSettings(): AppSettings {
-  return readStorage<AppSettings>(STORAGE_KEYS.SETTINGS, DEFAULT_SETTINGS);
+  const stored = readStorage<AppSettings>(STORAGE_KEYS.SETTINGS, DEFAULT_SETTINGS);
+  const envKey = import.meta.env.VITE_GEMINI_API_KEY || '';
+  if (!stored.geminiApiKey && envKey) {
+    return {
+      ...stored,
+      geminiApiKey: envKey,
+    };
+  }
+  return stored;
 }
 
 export function saveSettings(settings: AppSettings): void {
