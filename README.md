@@ -86,7 +86,7 @@ Modern medical care often leaves patient health data scattered across fragmented
 ### Installation
 ```bash
 # Clone the repository
-git clone https://github.com/Akhil-1247/Medlens-AI.git
+git clone https://github.com/perumallapalliakhil739-cpu/Medlens-AI.git
 cd Medlens-AI
 
 # Install dependencies
